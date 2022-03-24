@@ -17,6 +17,8 @@ namespace log4stash.Authentication
 
         public string Aws4SignerRegion { get; set; }
 
+        public string Aws4SignerService { get; set; } = "es";
+
         public IExternalEventWriter EventWriter { private get; set; }
 
         public void Authenticate(IRestClient client, IRestRequest request)
@@ -35,7 +37,7 @@ namespace log4stash.Authentication
             {
                 EndpointUri = new Uri(client.BaseUrl + request.Resource),
                 HttpMethod = request.Method.ToString(),
-                Service = "es",
+                Service = Aws4SignerService,
                 Region = Aws4SignerRegion
             };
 
